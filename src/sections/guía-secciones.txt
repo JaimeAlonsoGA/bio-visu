@@ -1,0 +1,10 @@
+source: img
+latinName: nombre en latín
+comunName: nombre común
+autor: autor de la fotografía
+
+source: ,
+latinName: "",
+comunName: "",
+autor: ""
+
