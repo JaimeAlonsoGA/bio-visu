@@ -1,5 +1,5 @@
-import { rocas } from "./rocas/rocas";
-import { gimnospermas } from './GIMNOSPERMAS/gimnospermas';
+import { rocas } from './rocas/rocas';
+import { gimnospermas } from './gimnospermas/gimnospermas';
 import { fosiles } from './fosiles/fosiles'; 
 import { mamiferos } from './mamiferos/mamiferos';
 
@@ -11,7 +11,7 @@ export const sections = [
   },
   {
     source: "FÓSILES",
-    list: fosiles
+    list: fosiles,
   },
   {
     source: "MAMÍFEROS",
@@ -22,27 +22,9 @@ export const sections = [
     list: gimnospermas
   },
   {
-    source: "crustaceos",
+    source: "ARTRÓPODOS",
   },
   {
-    source: "moluscos",
-  },
-  {
-    source: "fungi",
-  },
-  {
-    source: "aves",
-  },
-  {
-    source: "fungi",
-  },
-  {
-    source: "asd",
-  },
-  {
-    source: "fasddaungi",
-  },
-  {
-    source: "avsdfes",
+    source: "EQUINODERMOS",
   },
 ];

@@ -1,4 +1,4 @@
-import Pinus_sylvestris_pino from './src/sections/PLANTAS/Pinus_sylvestris_pino silvestre-De Didier Descouens.jpg';
+import Pinus_sylvestris_pino from './Pinus_sylvestris_pino silvestre-De Didier Descouens.jpg';
 
 export const gimnospermas = [
     {

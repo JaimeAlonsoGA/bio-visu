@@ -1,6 +1,5 @@
 import {
   FlatList,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -8,10 +7,10 @@ import {
 } from "react-native";
 import React from "react";
 import Header from "./header";
+import Visu from "../src/visuLogo.png";
 import { mainViewStyle } from "../src/sections/style";
 import { sections } from "../src/sections/sections";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Visu from "../src/visuLogo.png";
 
 const containerColor = [
   { color: "#ff7d54" },
@@ -23,7 +22,7 @@ const Index = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View style={mainViewStyle}>
-        <Header navigation={navigation} img={Visu} path={"Visu"} />
+        <Header navigation={navigation} img={Visu} path={'Visu'} />
         <Sections navigation={navigation} />
       </View>
     </SafeAreaView>
@@ -40,18 +39,19 @@ const Sections = ({ navigation }) => {
           color={containerColor[index % containerColor.length].color}
           source={item.source}
           navigation={navigation}
+          item={item}
         />
       )}
-      contentContainerStyle={{ paddingBottom: 20 }}
+      contentContainerStyle={{ paddingBottom: 300 }}
     />
   );
 };
 
-const SectionItem = ({ source, navigation, color }) => {
+const SectionItem = ({ source, navigation, color, item }) => {
   return (
     <TouchableOpacity
       style={styles.SectionItem}
-      onPress={() => navigation.navigate("Gallery")}
+      onPress={() => navigation.navigate('Gallery', {item})}
     >
       <Text
         style={[

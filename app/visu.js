@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "./header";
+import indexLogo from '../src/indexLogo.png';
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { mainViewStyle } from "../src/sections/style";
-import Gallery from '../src/gallery.png';
 
 
 const Visu = ({ navigation }) => {
   return (
     <SafeAreaView>
       <View style={mainViewStyle}>
-        <Header navigation={navigation} img={Gallery} path={'Index'}/>
+        <Header navigation={navigation} img={indexLogo} path={'Index'}/>
       </View>
     </SafeAreaView>
   );
