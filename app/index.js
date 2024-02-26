@@ -5,12 +5,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import Header from "./header";
 import Visu from "../src/visuLogo.png";
-import { mainViewStyle } from "../src/sections/style";
-import { sections } from "../src/sections/sections";
+import { mainViewStyle } from "../src/style";
+import { sections } from "../src/sections";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useModalVisible } from "../src/speciemenu";
+// import { containerColor } from "../src/style";
+import SpeciesPopUP from "../src/speciemenu";
 
 const containerColor = [
   { color: "#ff7d54" },
@@ -19,10 +22,31 @@ const containerColor = [
 ];
 
 const Index = ({ navigation }) => {
+  const [modalVisible, pressModalVisible] = useModalVisible();
+  const allSectionSpecies = sections.map((section, index) => {
+    return {
+      comunName: section.comunName,
+      latinName: section.latinName,
+      index: index,
+    };
+  });
+
   return (
     <SafeAreaView>
       <View style={mainViewStyle}>
-        <Header navigation={navigation} img={Visu} path={'Visu'} />
+        <Header
+          navigation={navigation}
+          img={Visu}
+          path={"Visu"}
+          pressModalVisible={pressModalVisible}
+        />
+        {/* {modalVisible && (
+          <SpeciesPopUP
+            items={sections}
+            pressModalVisible={pressModalVisible}
+            navigation={navigation}
+          />
+        )} */}
         <Sections navigation={navigation} />
       </View>
     </SafeAreaView>
@@ -50,8 +74,8 @@ const Sections = ({ navigation }) => {
 const SectionItem = ({ source, navigation, color, item }) => {
   return (
     <TouchableOpacity
-      style={styles.SectionItem}
-      onPress={() => navigation.navigate('Gallery', {item})}
+      style={styles.buttons}
+      onPress={() => navigation.navigate("Gallery", { item })}
     >
       <Text
         style={[
@@ -60,6 +84,7 @@ const SectionItem = ({ source, navigation, color, item }) => {
             backgroundColor: color,
             padding: 10,
             margin: "2%",
+            borderRadius: 4,
           },
         ]}
       >
@@ -72,7 +97,7 @@ const SectionItem = ({ source, navigation, color, item }) => {
 export default Index;
 
 const styles = StyleSheet.create({
-  SectionItem: {
+  buttons: {
     padding: 10,
     margin: "2%",
     width: "46%",

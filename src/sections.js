@@ -1,7 +1,7 @@
-import { rocas } from './rocas/rocas';
-import { gimnospermas } from './gimnospermas/gimnospermas';
-import { fosiles } from './fosiles/fosiles'; 
-import { mamiferos } from './mamiferos/mamiferos';
+import { rocas } from './sections/rocas/rocas';
+import { gimnospermas } from './sections/gimnospermas/gimnospermas';
+import { fosiles } from './sections/fosiles/fosiles'; 
+import { mamiferos } from './sections/mamiferos/mamiferos';
 
 
 export const sections = [

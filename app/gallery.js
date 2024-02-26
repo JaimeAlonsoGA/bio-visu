@@ -8,16 +8,24 @@ import {
 } from "react-native";
 import React, { useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header, { headerHeight } from "./header";
-import { mainViewStyle } from "../src/sections/style";
+import Header from "./header";
+import { mainViewStyle } from "../src/style";
 import indexLogo from "../src/indexLogo.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
+import SpeciesPopUP from "../src/speciemenu";
+// import { width, height } from "../src/style";
+import { useModalVisible } from "../src/speciemenu";
 
 const { width, height } = Dimensions.get("window");
 
 const Gallery = ({ navigation, route }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollViewRef = useRef();
+
+  const scrollToItem = (index) => {
+    scrollViewRef.current.scrollTo({ x: 0, y: index * 505, animated: true });
+  };
 
   const overlayOpacity = scrollY.interpolate({
     inputRange: [0, 200],
@@ -25,10 +33,25 @@ const Gallery = ({ navigation, route }) => {
     extrapolate: "clamp",
   });
 
+  const [modalVisible, pressModalVisible] = useModalVisible();
   const { item } = route.params;
+
   return (
     <SafeAreaView style={mainViewStyle}>
-      <Header navigation={navigation} img={indexLogo} path={"Index"} />
+      <Header
+        navigation={navigation}
+        img={indexLogo}
+        path={"Index"}
+        pressModalVisible={pressModalVisible}
+      />
+      {modalVisible && (
+        <SpeciesPopUP
+          items={item}
+          pressModalVisible={pressModalVisible}
+          scrollToItem={scrollToItem}
+          navigation={navigation}
+        />
+      )}
       <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
         <LinearGradient
           colors={["rgba(0, 0, 0, 1)", "#d9e1ff"]}
@@ -44,6 +67,7 @@ const Gallery = ({ navigation, route }) => {
         />
       </Animated.View>
       <Animated.ScrollView
+        ref={scrollViewRef}
         style={styles.ScrollView}
         scrollEventThrottle={16}
         onScroll={Animated.event(
@@ -115,10 +139,11 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   container: {
-    marginTop: height / 5,
+    //marginTop: height / 5,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: 500,
   },
   overlay: {
     position: "absolute",

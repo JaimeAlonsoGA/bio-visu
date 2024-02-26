@@ -3,7 +3,7 @@ import Header from "./header";
 import indexLogo from '../src/indexLogo.png';
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { mainViewStyle } from "../src/sections/style";
+import { mainViewStyle } from "../src/style";
 
 
 const Visu = ({ navigation }) => {
