@@ -12,6 +12,7 @@ import { ScrollView } from "react-native-gesture-handler";
 
 export const { width, height } = Dimensions.get("window");
 
+
 //custom hook useModalVisible(). initial State == ModalVisible = false
 export const useModalVisible = (initialState = false) => {
   const [modalVisible, setModalVisible] = useState(initialState);
@@ -47,15 +48,29 @@ const SpeciesPopUP = ({
         <View style={styles.SpeciesPopUP}>
           <View style={styles.modalContent}>
             <ScrollView showsVerticalScrollIndicator={false}>
-              {items.list.map((innerItem, index) => (
+              {items.list.map((innerItem, index) => {
+                let comunName;
+                let latinName;
+                    if(Array.isArray(innerItem))
+                    {
+                        latinName = innerItem[0].latinName;
+                        comunName = innerItem[0].comunName;
+                    } else {
+                        latinName = innerItem.latinName;
+                        comunName = innerItem.comunName;
+                    }
+                return (
                 <SpecieButton
                   key={index}
                   index={index}
                   attributes={innerItem}
+                  comunName={comunName}
+                  latinName={latinName}
                   scrollToItem={scrollToItem}
                   pressModalVisible={pressModalVisible}
                 />
-              ))}
+                )
+              })}
             </ScrollView>
           </View>
           <TouchableOpacity
@@ -87,6 +102,8 @@ const SpecieButton = ({
   attributes,
   pressModalVisible,
   scrollToItem,
+  comunName,
+  latinName,
 }) => {
   return (
     <View style={styles.SpecieButton}>
@@ -108,9 +125,9 @@ const SpecieButton = ({
               fontStyle: "italic",
             }}
           >
-            {attributes.latinName}
+            {latinName}
           </Text>
-          <Text>{attributes.comunName}</Text>
+          <Text>{comunName}</Text>
         </View>
       </TouchableOpacity>
     </View>
