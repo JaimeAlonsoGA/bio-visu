@@ -2,6 +2,8 @@ import { rocas } from './sections/rocas/rocas';
 import { gimnospermas } from './sections/gimnospermas/gimnospermas';
 import { fosiles } from './sections/fosiles/fosiles'; 
 import { mamiferos } from './sections/mamiferos/mamiferos';
+import { artropodos } from './sections/artropodos/artropodos';
+import { equinodermos } from './sections/equinodermos/equinodermos';
 
 
 export const sections = [
@@ -23,8 +25,10 @@ export const sections = [
   },
   {
     source: "ARTRÓPODOS",
+    list: artropodos
   },
   {
     source: "EQUINODERMOS",
+    list: equinodermos
   },
 ];

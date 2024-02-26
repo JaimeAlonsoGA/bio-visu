@@ -88,7 +88,7 @@ export const mamiferos = [
     {
         source: ardilla,
         latinName: "Sciurus vulgaris",
-        comunName: "ardilla",
+        comunName: "Ardilla",
         autor: "Ray Eye"
     },
     {

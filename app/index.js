@@ -5,15 +5,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef } from "react";
+import React from "react";
 import Header from "./header";
-import Visu from "../src/visuLogo.png";
+import VisuIcon from "../src/visuIcon.png";
 import { mainViewStyle } from "../src/style";
 import { sections } from "../src/sections";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useModalVisible } from "../src/speciemenu";
 // import { containerColor } from "../src/style";
-import SpeciesPopUP from "../src/speciemenu";
 
 const containerColor = [
   { color: "#ff7d54" },
@@ -36,7 +35,7 @@ const Index = ({ navigation }) => {
       <View style={mainViewStyle}>
         <Header
           navigation={navigation}
-          img={Visu}
+          img={VisuIcon}
           path={"Visu"}
           pressModalVisible={pressModalVisible}
         />
@@ -85,6 +84,7 @@ const SectionItem = ({ source, navigation, color, item }) => {
             padding: 10,
             margin: "2%",
             borderRadius: 4,
+            paddingVertical: 30,
           },
         ]}
       >
