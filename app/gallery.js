@@ -16,6 +16,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import SpeciesPopUP from "../src/speciemenu";
 // import { width, height } from "../src/style";
 import { useModalVisible } from "../src/speciemenu";
+import searchIcon from "../src/searchIcon.png";
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -43,13 +45,13 @@ const Gallery = ({ navigation, route }) => {
         img={indexLogo}
         path={"Index"}
         pressModalVisible={pressModalVisible}
+        rightImg={searchIcon}        
       />
       {modalVisible && (
         <SpeciesPopUP
           items={item}
           pressModalVisible={pressModalVisible}
           scrollToItem={scrollToItem}
-          navigation={navigation}
         />
       )}
       <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
@@ -85,9 +87,10 @@ const Gallery = ({ navigation, route }) => {
 };
 
 const Species = ({ item }) => {
+  const isArray = true;
   return item.list.map((innerItem, index) => {
     if (Array.isArray(innerItem)) {
-      return <Specie key={index} species={innerItem} />;
+      return <Specie key={index} species={innerItem} isArray={isArray}/>;
     } else {
       return (
         <SpecieList
@@ -102,7 +105,7 @@ const Species = ({ item }) => {
 };
 
 //array.map horizontally
-const Specie = ({ species }) => (
+const Specie = ({ species, isArray }) => (
   <ScrollView horizontal={true}>
     {species.map((specie, index) => (
       <SpecieList
@@ -110,14 +113,16 @@ const Specie = ({ species }) => (
         source={specie.source}
         latinName={specie.latinName}
         comunName={specie.comunName}
+        isArray={isArray}
       />
     ))}
   </ScrollView>
 );
 
-const SpecieList = ({ source, latinName, comunName }) => (
+const SpecieList = ({ source, latinName, comunName, isArray }) => (
   <View style={styles.container}>
     <Image source={source} style={styles.image} />
+    {isArray && <View style={styles.indicator}/>}
     <Text
       style={[
         styles.pictureText,
@@ -172,5 +177,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderColor: "#cbd2ee",
     height: 80,
+  },
+  indicator: {
+    height: 10,
+    width: 10,
+    borderRadius: 100,
+    backgroundColor: "rgba(255, 125, 84, 0.4)",
   },
 });

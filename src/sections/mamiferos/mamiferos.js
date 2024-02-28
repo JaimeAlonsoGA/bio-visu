@@ -1,4 +1,5 @@
 import zorro from './Cráneo Vulpes vulpes-Zorro-De Didier Descouens.jpg'
+import zorro2 from './Vulpes_vulpes_2-zorro - Juan Lacruz.jpg'
 import corzo from './Capreolus_capreolus_corzo-De Przykuta.jpg'
 import garduña from './Cráneo Martes_foina_garduña-De Didier Descouens.jpg'
 import liron from './Eliomys quercinus-Lirón careto-Asseus.jpg'
@@ -14,17 +15,17 @@ import topo from './Talpa_europaea_topo común-De Didier Descouens.jpg'
 
 export const mamiferos = [
     [{
-        source: zorro,
+        source: zorro2,
         latinName: "Vulpes vulpes",
         comunName: "Zorro",
         autor: "Didier Descouens",
-    }, 
+    },
     {
         source: zorro,
         latinName: "Vulpes vulpes",
         comunName: "Zorro",
         autor: "Didier Descouens",
-    }],
+    }], 
     {
         source: corzo,
         latinName: "Capreolus capreolus",

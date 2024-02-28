@@ -7,18 +7,19 @@ import {
   Pressable,
 } from "react-native";
 import React from "react";
-import searchIcon from "../src/searchIcon.png";
 
 //export const headerHeight = 135;
 
-const Header = ({ navigation, pressModalVisible, modalVisible, img, path }) => {
+const Header = ({ navigation, pressModalVisible, img, path, rightImg }) => {
   return (
   <View style={styles.header}>
     <GoTo navigation={navigation} img={img} path={path} />
     <Text style={styles.headerText}>VISU</Text>
-    <TouchableOpacity onPress={() => { pressModalVisible() }} >
+    <Search pressModalVisible={pressModalVisible} rightImg={rightImg}/>
+
+    {/* <TouchableOpacity onPress={() => { pressModalVisible() }} >
       <Image source={searchIcon} style={styles.goTo} />
-    </TouchableOpacity>
+    </TouchableOpacity> */}
   </View>
 )};
 
@@ -27,6 +28,12 @@ const GoTo = ({ navigation, img, path }) => (
     <Image source={img} style={styles.goTo} />
   </TouchableOpacity>
 );
+
+const Search = ({ pressModalVisible, rightImg }) => (
+  <TouchableOpacity onPress={() => { pressModalVisible() }}>
+    <Image source={rightImg} style={styles.goTo} />
+  </TouchableOpacity>
+)
 
 export default Header;
 
