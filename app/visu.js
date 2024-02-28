@@ -89,13 +89,18 @@ const SpecieVisu = ({ specieVisu, next }) => {
 
   useEffect(() => {
     setNameVisible(false);
+    console.log(specieVisu);
   }, [specieVisu]);
 
   return (
     <View style={styles.specie}>
       <Pressable onPress={handlePress}>
         <Image
-          source={specieVisu.images[Math.random(specieVisu.images.length)].src}
+          source={
+            specieVisu.images[
+              Math.floor(Math.random() * specieVisu.images.length)
+            ].src
+          }
           style={styles.image}
         />
       </Pressable>
