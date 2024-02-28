@@ -15,6 +15,7 @@ import { sections } from "../src/sections";
 import searchIcon from "../src/searchIcon.png";
 import { useModalVisible } from "../src/visumenu";
 import VisuMenu from "../src/visumenu";
+import { set } from "lodash";
 
 const { width, height } = Dimensions.get("window");
 
@@ -83,7 +84,10 @@ const SpecieVisu = ({ specieVisu, next }) => {
   const [nameVisible, setNameVisible] = useState(false);
 
   const handlePress = () => {
-    if (nameVisible) next();
+    if (nameVisible) {
+      setNameVisible(false);
+      next();
+    }
     setNameVisible(true);
   };
 
