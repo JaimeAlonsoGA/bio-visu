@@ -8,27 +8,27 @@ import { equinodermos } from './sections/equinodermos/equinodermos';
 
 export const sections = [
   {
-    source: "ROCAS",
+    title: "ROCAS",
     list: rocas,
   },
   {
-    source: "FÓSILES",
+    title: "FÓSILES",
     list: fosiles,
   },
   {
-    source: "MAMÍFEROS",
+    title: "MAMÍFEROS",
     list: mamiferos
   },
   {
-    source: "GIMNOSPERMAS",
+    title: "GIMNOSPERMAS",
     list: gimnospermas
   },
   {
-    source: "ARTRÓPODOS",
+    title: "ARTRÓPODOS",
     list: artropodos
   },
   {
-    source: "EQUINODERMOS",
+    title: "EQUINODERMOS",
     list: equinodermos
   },
 ];

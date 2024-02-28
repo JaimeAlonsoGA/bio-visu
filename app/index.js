@@ -60,7 +60,7 @@ const Sections = ({ navigation }) => {
       renderItem={({ item, index }) => (
         <SectionItem
           color={containerColor[index % containerColor.length].color}
-          source={item.source}
+          source={item.title}
           navigation={navigation}
           item={item}
         />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   Modal,
@@ -9,34 +9,60 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { sections } from "./sections";
+import { randomSection } from "../app/visu";
 
 export const { width, height } = Dimensions.get("window");
 
 export const useModalVisible = (initialState = false) => {
   const [modalVisible, setModalVisible] = useState(initialState);
 
-  const pressModalVisible = () => {
+  const toggleModalVisible = () => {
     setModalVisible(!modalVisible);
   };
 
-  return [modalVisible, pressModalVisible];
+  return [modalVisible, toggleModalVisible];
+};
+
+const useSelectSections = (initialState = []) => {
+  const [selectedSections, setSelectedSections] = useState(initialState);
+
+  useEffect(() => {
+    console.log("selectedSections", selectedSections);
+  }, [selectedSections]);
+
+  const toggleSelectedSections = (title) => {
+    if (selectedSections.includes(title)) {
+      setSelectedSections(
+        selectedSections.filter((section) => section !== title)
+      );
+    } else {
+      setSelectedSections([...selectedSections, title]);
+    }
+  };
+
+  return [selectedSections, toggleSelectedSections];
 };
 
 const VisuMenu = ({
-  pressModalVisible,
+  toggleModalVisible,
   modalVisible,
-  setSpecieVisu,
-  randomSection,
-  setIsVisuFiltered,
+  save,
+  currentSelections,
 }) => {
-  const [indexSelected, setIndexSelected] = useState([]);
+  const [selectedSections, toggleSelectedSections] =
+    useSelectSections(currentSelections);
+  const saveChanges = () => {
+    save(selectedSections);
+    toggleModalVisible();
+  };
+
   return (
     <View>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={pressModalVisible}
+        onRequestClose={toggleModalVisible}
       >
         <View style={styles.SectionPopUp}>
           <View style={styles.modalContent}>
@@ -44,23 +70,14 @@ const VisuMenu = ({
               {sections.map((section, index) => (
                 <SectionButton
                   key={index}
-                  name={section.source}
-                  index={index}
-                  indexSelected={indexSelected}
-                  setIndexSelected={setIndexSelected}
+                  name={section.title}
+                  selected={selectedSections.includes(section.title)}
+                  toggleSelect={() => toggleSelectedSections(section.title)}
                 />
               ))}
               {/* <SectionButton name="TODO"/> */}
             </ScrollView>
-            <TouchableOpacity
-              onPress={() => {
-                setSpecieVisu(
-                  randomSection({ sectionsSelected: indexSelected })
-                );
-                setIsVisuFiltered(true);
-                pressModalVisible();
-              }}
-            >
+            <TouchableOpacity onPress={saveChanges}>
               <View style={styles.selectAllButton}>
                 <Text
                   style={{
@@ -76,7 +93,7 @@ const VisuMenu = ({
           </View>
           <TouchableOpacity
             onPress={() => {
-              pressModalVisible();
+              toggleModalVisible();
             }}
           >
             <View style={styles.closeButton}>
@@ -97,8 +114,7 @@ const VisuMenu = ({
   );
 };
 
-const SectionButton = ({ name, index, indexSelected, setIndexSelected }) => {
-  const [selected, setSelected] = useState(false);
+const SectionButton = ({ name, selected, toggleSelect }) => {
   return (
     <View
       style={[
@@ -106,21 +122,7 @@ const SectionButton = ({ name, index, indexSelected, setIndexSelected }) => {
         styles.SectionButton,
       ]}
     >
-      <TouchableOpacity
-        onPress={() => {
-          setSelected(!selected);
-          if (selected) {
-            const newIndexSelected = indexSelected.filter(
-              (item) => item !== index
-            );
-            setIndexSelected(newIndexSelected);
-          } else {
-            const newIndexSelected = [...indexSelected, index];
-            setIndexSelected(newIndexSelected);
-            console.log(newIndexSelected);
-          }
-        }}
-      >
+      <TouchableOpacity onPress={toggleSelect}>
         <View>
           <Text
             style={{

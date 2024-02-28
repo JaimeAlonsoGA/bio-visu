@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./header";
 import indexLogo from "../src/indexLogo.png";
 import {
@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,16 +18,38 @@ import VisuMenu from "../src/visumenu";
 
 const { width, height } = Dimensions.get("window");
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
-}
+const useSections = (initialState = []) => {
+  const [selectedSections, setSelectedSections] = useState(initialState);
+
+  const save = (selectedElements) => {
+    setSelectedSections(
+      sections.filter((item) => selectedElements.includes(item.title))
+    );
+  };
+
+  return [selectedSections, save];
+};
 
 const Visu = ({ navigation }) => {
-  const [modalVisible, pressModalVisible] = useModalVisible();
-  const [specieVisu, setSpecieVisu] = useState(randomSpecie());
-  const [isVisuFiltered, setIsVisuFiltered] = useState(false);
+  const [modalVisible, toggleModalVisible] = useModalVisible();
+  const [specieVisu, setSpecieVisu] = useState(null);
+  const [selectedSections, save] = useSections(sections);
+
+  const selectRandomItemFromSelectedSections = () => {
+    const randomSection =
+      selectedSections[Math.floor(Math.random() * selectedSections.length)];
+    const randomItem =
+      randomSection.list[Math.floor(Math.random() * randomSection.list.length)];
+    setSpecieVisu(randomItem);
+  };
+
+  // ciclo de vida del componente: 3 fases
+  useEffect(() => {
+    //siempre se llama cuando se monta el componente
+    selectRandomItemFromSelectedSections();
+  }, [selectedSections]);
+  //siempre se llama cuando un elemento de las dependencias se actualiza
+
   return (
     <SafeAreaView>
       <View style={mainViewStyle}>
@@ -37,90 +58,38 @@ const Visu = ({ navigation }) => {
           img={indexLogo}
           path={"Index"}
           rightImg={searchIcon}
-          pressModalVisible={pressModalVisible}
+          pressModalVisible={toggleModalVisible}
         />
-        {modalVisible && (
-          <VisuMenu
-            pressModalVisible={pressModalVisible}
-            setSpecieVisu={setSpecieVisu}
-            randomSection={randomSection}
-            setIsVisuFiltered={setIsVisuFiltered}
-          />
-        )}
+        <VisuMenu
+          toggleModalVisible={toggleModalVisible}
+          modalVisible={modalVisible}
+          save={save}
+          currentSelections={selectedSections.map((item) => item.title)}
+        />
         <View style={styles.container}>
-          <SpecieVisu
-            specieVisu={specieVisu}
-            setSpecieVisu={setSpecieVisu}
-            isVisuFiltered={isVisuFiltered}
-          />
+          {specieVisu && (
+            <SpecieVisu
+              specieVisu={specieVisu}
+              next={selectRandomItemFromSelectedSections}
+            />
+          )}
         </View>
       </View>
     </SafeAreaView>
   );
 };
 
-//Stores the total species in a number and get a random Specie in between that range
-const randomSpecie = () => {
-  let totalSpecies = [];
-  let speciesCount = 0;
-  for (let i = 0; i < sections.length; i++) {
-    if (sections[i] && sections[i].list) {
-      for (let j = 0; j < sections[i].list.length; j++) {
-        if (Array.isArray(sections[i].list[j])) {
-          for (let r = 0; r < sections[i].list[j].length; r++) {
-            totalSpecies[speciesCount] = sections[i].list[j][r];
-            speciesCount++;
-          }
-        }
-        totalSpecies[speciesCount] = sections[i].list[j];
-        speciesCount++;
-      }
-    }
-  }
-  const specieShownVisu = totalSpecies[getRandomInt(0, speciesCount)]
-  console.log(specieShownVisu)
-  return specieShownVisu;
-};
-
-export const randomSection = ({ sectionsSelected }) => {
-  let totalSpeciesSection = [];
-  let speciesSectionCount = 0;
-  for (let s = 0; s < sectionsSelected.length; s++) {
-    if (sections[sectionsSelected[s]]) {
-      let currentSection = sections[sectionsSelected[s]];
-      for (let i = 0; i < currentSection.list.length; i++) {
-        totalSpeciesSection[speciesSectionCount] = currentSection.list[i];
-        speciesSectionCount++;
-      }
-    }
-  }
-  return totalSpeciesSection[getRandomInt(0, speciesSectionCount)];
-};
-
-const randomFilteredVisuSpecie = ({ specieVisuArray }) => {
-  const visuArray = [];
-  return visuArray[getRandomInt(0, specieVisuArray.length)];
-};
-
-const SpecieVisu = ({ specieVisu, setSpecieVisu, isVisuFiltered }) => {
+const SpecieVisu = ({ specieVisu, next }) => {
   const [nameVisible, setNameVisible] = useState(false);
+
+  const handlePress = () => {
+    if (nameVisible) next();
+    setNameVisible(true);
+  };
+
   return (
     <View style={styles.specie}>
-      <Pressable
-        onPress={() => {
-          if (nameVisible == false) {
-            setNameVisible(true);
-          } else if (isVisuFiltered) {
-            setNameVisible(false);
-            setSpecieVisu(
-              randomFilteredVisuSpecie({ specieVisuArray: specieVisu })
-            );
-          } else {
-            setNameVisible(false);
-            setSpecieVisu(randomSpecie());
-          }
-        }}
-      >
+      <Pressable onPress={handlePress}>
         <Image source={specieVisu.source} style={styles.image} />
       </Pressable>
       {nameVisible && <SpecieInfo specieVisu={specieVisu} />}

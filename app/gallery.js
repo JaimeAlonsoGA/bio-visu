@@ -18,7 +18,6 @@ import SpeciesPopUP from "../src/speciemenu";
 import { useModalVisible } from "../src/speciemenu";
 import searchIcon from "../src/searchIcon.png";
 
-
 const { width, height } = Dimensions.get("window");
 
 const Gallery = ({ navigation, route }) => {
@@ -45,7 +44,7 @@ const Gallery = ({ navigation, route }) => {
         img={indexLogo}
         path={"Index"}
         pressModalVisible={pressModalVisible}
-        rightImg={searchIcon}        
+        rightImg={searchIcon}
       />
       {modalVisible && (
         <SpeciesPopUP
@@ -78,7 +77,7 @@ const Gallery = ({ navigation, route }) => {
         )}
       >
         <View>
-          <Text style={styles.sectionText}>{item.source}</Text>
+          <Text style={styles.sectionText}>{item.title}</Text>
           <Species item={item} />
         </View>
       </Animated.ScrollView>
@@ -89,18 +88,20 @@ const Gallery = ({ navigation, route }) => {
 const Species = ({ item }) => {
   const isArray = true;
   return item.list.map((innerItem, index) => {
-    if (Array.isArray(innerItem)) {
-      return <Specie key={index} species={innerItem} isArray={isArray}/>;
-    } else {
-      return (
-        <SpecieList
-          key={index}
-          source={innerItem.source}
-          latinName={innerItem.latinName}
-          comunName={innerItem.comunName}
-        />
-      );
-    }
+    return (
+      <>
+        {Array.isArray(innerItem) ? (
+          <Specie key={index} species={innerItem} isArray={isArray} />
+        ) : (
+          <SpecieList
+            key={index}
+            source={innerItem.source}
+            latinName={innerItem.latinName}
+            comunName={innerItem.comunName}
+          />
+        )}
+      </>
+    );
   });
 };
 
@@ -122,7 +123,7 @@ const Specie = ({ species, isArray }) => (
 const SpecieList = ({ source, latinName, comunName, isArray }) => (
   <View style={styles.container}>
     <Image source={source} style={styles.image} />
-    {isArray && <View style={styles.indicator}/>}
+    {isArray && <View style={styles.indicator} />}
     <Text
       style={[
         styles.pictureText,
