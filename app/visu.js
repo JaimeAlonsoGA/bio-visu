@@ -87,10 +87,17 @@ const SpecieVisu = ({ specieVisu, next }) => {
     setNameVisible(true);
   };
 
+  useEffect(() => {
+    setNameVisible(false);
+  }, [specieVisu]);
+
   return (
     <View style={styles.specie}>
       <Pressable onPress={handlePress}>
-        <Image source={specieVisu.source} style={styles.image} />
+        <Image
+          source={specieVisu.images[Math.random(specieVisu.images.length)].src}
+          style={styles.image}
+        />
       </Pressable>
       {nameVisible && <SpecieInfo specieVisu={specieVisu} />}
     </View>

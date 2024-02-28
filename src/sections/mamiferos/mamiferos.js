@@ -15,7 +15,7 @@ import topo from "./Talpa_europaea_topo común-De Didier Descouens.jpg";
 
 export const mamiferos = [
   {
-    sources: [
+    images: [
       { src: zorro2, author: "Didier Descouens" },
       { src: zorro, author: "Didier Descouens" },
     ],
@@ -24,73 +24,62 @@ export const mamiferos = [
     autor: "Didier Descouens",
   },
   {
-    source: corzo,
+    images: [{ src: corzo, author: "Przykuta" }],
     latinName: "Capreolus capreolus",
     comunName: "Corzo",
-    autor: "Przykuta",
   },
   {
-    source: garduña,
+    images: [{ src: garduña, author: "Didier Descouens" }],
     latinName: "Martes foina",
     comunName: "Garduña",
-    autor: "Didier Descouens",
   },
   {
-    source: liron,
+    images: [{ src: liron, author: "Careto Asseus" }],
     latinName: "Eliomys quercinus",
     comunName: "Lirón",
-    autor: "Careto Asseus",
   },
   {
-    source: erizo,
+    images: [{ src: erizo, author: "Hrald" }],
     latinName: "Erinaceus europaeus",
     comunName: "Erizo común",
-    autor: "Hrald",
   },
   {
-    source: gineta,
+    images: [{ src: gineta, author: "Guérin Nicolas" }],
     latinName: "Genetta genetta",
     comunName: "Gineta",
-    autor: "Guérin Nicolas",
   },
   {
-    source: nutria,
+    images: [{ src: nutria, author: "Sarefo" }],
     latinName: "Lutra lutra",
     comunName: "Nutria",
-    autor: "Sarefo",
   },
   {
-    source: lince,
+    images: [{ src: lince, author: "Guérin Nicolas" }],
     latinName: "Lynx pardinus",
     comunName: "Lince Ibérico",
-    autor: "Guérin Nicolas",
   },
   {
-    source: comadreja,
+    images: [{ src: comadreja, author: "Keven Law" }],
     latinName: "Mustela nivalis",
     comunName: "Comadreja",
-    autor: "Keven Law",
   },
   {
-    source: conejo,
+    images: [{ src: conejo, author: "Harrison" }],
     latinName: "Oryctolagus cuniculus",
     comunName: "Conejo",
-    autor: "Harrison",
   },
   {
-    source: rebeco,
+    images: [{ src: rebeco, author: "Giles Laurent" }],
     latinName: "Rupicapra rupicabra",
     comunName: "Rebeco",
-    autor: "Giles Laurent",
   },
   {
-    source: ardilla,
+    images: [{ src: ardilla, author: "Ray Eye" }],
     latinName: "Sciurus vulgaris",
     comunName: "Ardilla",
-    autor: "Ray Eye",
   },
   {
-    source: topo,
+    images: [{ src: topo, author: "Didier Descouens" }],
     latinName: "Talpa europaea",
     comunName: "Topo común",
     autor: "Didier Descouens",

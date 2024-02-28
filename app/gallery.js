@@ -86,41 +86,27 @@ const Gallery = ({ navigation, route }) => {
 };
 
 const Species = ({ item }) => {
-  const isArray = true;
-  return item.list.map((innerItem, index) => {
-    return (
-      <>
-        {Array.isArray(innerItem) ? (
-          <Specie key={index} species={innerItem} isArray={isArray} />
-        ) : (
-          <SpecieList
-            key={index}
-            source={innerItem.source}
-            latinName={innerItem.latinName}
-            comunName={innerItem.comunName}
-          />
-        )}
-      </>
-    );
-  });
+  return item.list.map((item, index) => (
+    <Specie key={index} item={item} isArray={item.isArray} />
+  ));
 };
 
 //array.map horizontally
-const Specie = ({ species, isArray }) => (
+const Specie = ({ item }) => (
   <ScrollView horizontal={true}>
-    {species.map((specie, index) => (
-      <SpecieList
+    {item.images.map((img, index) => (
+      <SpecieCard
+        source={img.src}
+        latinName={item.latinName}
+        comunName={item.comunName}
         key={index}
-        source={specie.source}
-        latinName={specie.latinName}
-        comunName={specie.comunName}
-        isArray={isArray}
+        isArray={item.images.length > 1}
       />
     ))}
   </ScrollView>
 );
 
-const SpecieList = ({ source, latinName, comunName, isArray }) => (
+const SpecieCard = ({ source, latinName, comunName, isArray }) => (
   <View style={styles.container}>
     <Image source={source} style={styles.image} />
     {isArray && <View style={styles.indicator} />}

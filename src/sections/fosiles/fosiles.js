@@ -2,9 +2,8 @@ import phacops from "./Phacops.jpg";
 
 export const fosiles = [
   {
-    source: phacops,
+    images: [{ src: phacops, author: "Didier Descouens" }],
     latinName: "Phacops",
     comunName: "Trilobites",
-    autor: "Didier Descouers",
   },
 ];
