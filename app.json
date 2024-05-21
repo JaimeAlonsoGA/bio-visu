@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "bio-visu",
-    "slug": "bio-visu",
+    "slug": "the-visu-exam",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b1b335fb-cd4c-4954-9b37-ff549f02b990"
+      }
+    },
+    "owner": "sonicode"
   }
 }
