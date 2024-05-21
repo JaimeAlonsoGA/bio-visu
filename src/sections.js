@@ -1,5 +1,5 @@
-import { rocas } from './sections/rocas/rocas';
-import { gimnospermas } from './sections/gimnospermas/gimnospermas';
+import { rocas } from './sections/ROCAS/rocas';
+import { gimnospermas } from './sections/GIMNOSPERMAS/gimnospermas';
 import { fosiles } from './sections/fosiles/fosiles'; 
 import { mamiferos } from './sections/mamiferos/mamiferos';
 import { artropodos } from './sections/artropodos/artropodos';
